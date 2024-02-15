@@ -1,0 +1,21 @@
+name: "parallel run"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [service1, service2, service3]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build ${{ matrix.service }}
+      run: ./${{ matrix.service }}/build-script.sh ${{ matrix.service }}
+
+    - name: Test ${{ matrix.service }}
+      run: ./${{ matrix.service }}/test-script.sh ${{ matrix.service }}
+
