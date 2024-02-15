@@ -14,8 +14,13 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Build ${{ matrix.service }}
-      run: ./${{ matrix.service }}/build-script.sh ${{ matrix.service }}
+      run: |
+        chmod 755 ./${{ matrix.service }}/build-script.sh
+        ./${{ matrix.service }}/build-script.sh ${{ matrix.service }}
 
     - name: Test ${{ matrix.service }}
-      run: ./${{ matrix.service }}/test-script.sh ${{ matrix.service }}
+      run: |
+        chmod 755 ./${{ matrix.service }}/test-script.sh
+        ./${{ matrix.service }}/test-script.sh ${{ matrix.service }}
+
 
